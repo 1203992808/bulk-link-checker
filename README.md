@@ -58,6 +58,9 @@ Response:
 }
 ```
 
+![alt text](image.png)
+![alt text](image-1.png)
+
 ## Try it with these sites
 You can test this checker with these two sites:
 - https://zimageturbo.site/ - Z Image Turbo is a fast text-to-image generator delivering photorealistic results and multilingual text rendering.
