@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Bulk link checker for status codes, redirects, response time, and titles."
+    />
+    <title>Bulk Link Checker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="background-glow" aria-hidden="true"></div>
+    <main class="app">
+      <header class="hero">
+        <div class="hero-text reveal" style="--delay: 0ms">
+          <span class="eyebrow">Open Source Utility</span>
+          <h1>Bulk link health checks that look as sharp as your reports.</h1>
+          <p>
+            Paste a list of URLs, run the scan, and export a clean CSV. Designed for
+            content teams, SEO audits, and engineering QA.
+          </p>
+          <div class="hero-tags">
+            <span>Status codes</span>
+            <span>Redirect paths</span>
+            <span>Response time</span>
+            <span>Page titles</span>
+          </div>
+        </div>
+        <div class="hero-card reveal" style="--delay: 120ms">
+          <div class="hero-card-label">Sample snapshot</div>
+          <div class="hero-card-grid">
+            <div>
+              <p class="hero-card-title">98%</p>
+              <p class="hero-card-sub">Healthy links</p>
+            </div>
+            <div>
+              <p class="hero-card-title">12</p>
+              <p class="hero-card-sub">Redirects</p>
+            </div>
+            <div>
+              <p class="hero-card-title">640ms</p>
+              <p class="hero-card-sub">Median response</p>
+            </div>
+          </div>
+          <p class="hero-card-note">Built to stay fast under load with adjustable concurrency.</p>
+        </div>
+      </header>
+
+      <section class="panel reveal" style="--delay: 220ms">
+        <div class="panel-header">
+          <div>
+            <h2>Input</h2>
+            <p>One URL per line. Missing scheme defaults to https.</p>
+          </div>
+          <button class="chip" id="sampleButton" type="button">Load sample</button>
+        </div>
+
+        <textarea
+          id="urlInput"
+          placeholder="https://example.com\nhttps://your-site.com/docs\nnews.ycombinator.com"
+          rows="8"
+        ></textarea>
+
+        <div class="options">
+          <div class="field">
+            <label for="timeoutInput">Timeout (ms)</label>
+            <input id="timeoutInput" type="number" min="2000" max="30000" step="500" />
+          </div>
+          <div class="field">
+            <label for="redirectInput">Max redirects</label>
+            <input id="redirectInput" type="number" min="0" max="15" step="1" />
+          </div>
+          <div class="field">
+            <label for="concurrencyInput">Concurrency</label>
+            <input id="concurrencyInput" type="number" min="1" max="20" step="1" />
+          </div>
+          <label class="toggle">
+            <input id="titleToggle" type="checkbox" checked />
+            <span>Fetch titles</span>
+          </label>
+        </div>
+
+        <div class="actions">
+          <button class="primary" id="runButton" type="button">Check links</button>
+          <button class="ghost" id="clearButton" type="button">Clear</button>
+          <button class="ghost" id="exportButton" type="button" disabled>Export CSV</button>
+        </div>
+        <div class="status" id="statusText" role="status" aria-live="polite">Ready.</div>
+      </section>
+
+      <section class="panel results reveal" style="--delay: 320ms">
+        <div class="panel-header">
+          <div>
+            <h2>Results</h2>
+            <p>Filter and review the output before exporting.</p>
+          </div>
+          <div class="filters">
+            <label class="toggle">
+              <input id="errorsOnly" type="checkbox" />
+              <span>Errors only</span>
+            </label>
+            <input id="searchInput" type="search" placeholder="Search by URL or title" />
+          </div>
+        </div>
+
+        <div class="summary" id="summaryCards">
+          <div class="summary-card">
+            <p class="summary-label">Total</p>
+            <p class="summary-value" id="totalCount">0</p>
+          </div>
+          <div class="summary-card">
+            <p class="summary-label">Healthy</p>
+            <p class="summary-value" id="okCount">0</p>
+          </div>
+          <div class="summary-card">
+            <p class="summary-label">Redirects</p>
+            <p class="summary-value" id="redirectCount">0</p>
+          </div>
+          <div class="summary-card">
+            <p class="summary-label">Errors</p>
+            <p class="summary-value" id="errorCount">0</p>
+          </div>
+          <div class="summary-card">
+            <p class="summary-label">Avg time</p>
+            <p class="summary-value" id="avgTime">-</p>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>URL</th>
+                <th>Status</th>
+                <th>Final URL</th>
+                <th>Time</th>
+                <th>Title / Error</th>
+              </tr>
+            </thead>
+            <tbody id="resultsBody">
+              <tr class="placeholder">
+                <td colspan="6">No results yet. Run a scan to populate this table.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
