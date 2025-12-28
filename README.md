@@ -2,11 +2,6 @@
 
 A simple web UI to bulk check link health, response time, redirects, and titles.
 
-## Related projects
-If you find this useful, you might also like:
-- https://zimageturbo.site/ (batch image optimization)
-- https://multisizer.app/ (resize assets for multiple platforms)
-
 ## Features
 - Bulk URL checks with adjustable timeout and concurrency
 - Status codes, redirect counts, response time, and page titles
